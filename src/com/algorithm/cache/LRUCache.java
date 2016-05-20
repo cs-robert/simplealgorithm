@@ -26,6 +26,16 @@ public class LRUCache<K, V> extends BaseCache<K, V> {
 
 	}
 
+	@Override
+	public V get(K key) {
+		V value = super.get(key);
+		if (value != null) {
+			hashMap.remove(key);
+			hashMap.put(key, value);
+		}
+		return value;
+	}
+
 	protected void reset() {
 		while (currentsize > maxsize) {
 			super.remove(hashMap.keySet().iterator().next());

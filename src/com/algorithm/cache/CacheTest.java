@@ -1,5 +1,11 @@
 package com.algorithm.cache;
 
+/**
+ * 我们暂且把put相同的key也当成一种命中
+ * 
+ * @author chao
+ *
+ */
 public class CacheTest {
 
 	public static void main(String[] args) {
@@ -33,5 +39,18 @@ public class CacheTest {
 		lruCache.printAll();
 		lruCache.put("9", "dddddd");
 		lruCache.printAll();
+
+		System.out.println("===============");
+		LFUCache<String, String> lfucache = new LFUCache<>(10);
+		lfucache.put("1", "aaaaaa");
+		lfucache.printAll();
+		lfucache.put("1", "b");
+		lfucache.printAll();
+		lfucache.put("2", "c");
+		lfucache.printAll();
+		lfucache.put("3", "e");
+		lfucache.printAll();
+		lfucache.put("9", "dddddddd");
+		lfucache.printAll();
 	}
 }

@@ -1,7 +1,5 @@
 package com.algorithm.cache;
 
-import java.util.LinkedList;
-
 /**
  * 
  * @author chao
