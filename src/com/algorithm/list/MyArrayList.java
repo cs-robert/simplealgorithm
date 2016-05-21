@@ -3,6 +3,13 @@ package com.algorithm.list;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * 线性数组
+ * 
+ * @author chao
+ *
+ * @param <E>
+ */
 public class MyArrayList<E> implements Iterable<E> {
 	private static final int DEFAULT_CAPACITY = 10;
 	private int theSize;

@@ -1,5 +1,11 @@
 package com.algorithm.list;
 
+/**
+ * 简单组合
+ * 
+ * @author chao
+ *
+ */
 public class Permutation {
 	public static void permute(char[] ch, int len, int cur) {
 		if (cur == len - 1) {

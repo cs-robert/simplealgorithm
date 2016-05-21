@@ -4,6 +4,13 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * 链表数据结构
+ * 
+ * @author chao
+ *
+ * @param <E>
+ */
 public class MyLinkedList<E> implements Iterable<E> {
 	private class Node<T> {
 		public Node() {
