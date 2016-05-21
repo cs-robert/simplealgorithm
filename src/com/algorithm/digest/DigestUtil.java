@@ -28,7 +28,8 @@ public class DigestUtil {
 				len = 1024 * 1024 * 1024 * 1;
 				start = len;
 			}
-			MappedByteBuffer mb = input.getChannel().map(MapMode.READ_ONLY, 0, len);
+			MappedByteBuffer mb = input.getChannel().map(MapMode.READ_ONLY, 0,
+					len);
 			md.update(mb);
 			if (start != 0) {
 				FileInputStream in = null;

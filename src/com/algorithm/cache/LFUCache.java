@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
  */
 public class LFUCache<K, V> extends BaseCache<K, V> {
 	private int maxsize = DEFAULT_SIZE;
-	protected LinkedHashMap<K, Entry> hashMap = new LinkedHashMap<>();
+	protected LinkedHashMap<K, Entry> lfuhashMap = new LinkedHashMap<>();
 
 	class Entry implements Comparable<Entry> {
 		K key;
@@ -50,41 +50,41 @@ public class LFUCache<K, V> extends BaseCache<K, V> {
 			System.out.println("error : the object is too large!!!");
 			return;
 		}
-		Entry oldobj = hashMap.get(key);
+		Entry oldobj = lfuhashMap.get(key);
 		int oldvalue = 1;
 		if (oldobj != null) {
 			currentsize = currentsize - getObjSize(oldobj.value);
-			hashMap.remove(key);
+			lfuhashMap.remove(key);
 			oldvalue = oldobj.hitcount + 1;
 		}
 		currentsize = currentsize + getObjSize(value);
 		reset();
-		hashMap.put(key, new Entry(key, value, oldvalue));
+		lfuhashMap.put(key, new Entry(key, value, oldvalue));
 
 	}
 
 	@Override
 	public V get(K key) {
-		Entry current = hashMap.get(key);
+		Entry current = lfuhashMap.get(key);
 		if (current == null) {
 			return null;
 		}
 		current.hitcount++;
-		return hashMap.get(key).value;
+		return lfuhashMap.get(key).value;
 	}
 
 	protected void reset() {
 		while (currentsize > maxsize) {
-			LFUCache<K, V>.Entry minhit = Collections.min(hashMap.values());
-			hashMap.remove(minhit.key);
+			LFUCache<K, V>.Entry minhit = Collections.min(lfuhashMap.values());
+			lfuhashMap.remove(minhit.key);
 			currentsize = currentsize - getObjSize(minhit.value);
 		}
 	}
 
 	public void printAll() {
 		System.out.println("currentSize: " + currentsize);
-		System.out.println("info:" + hashMap);
-		System.out.println("keyset:" + hashMap.keySet());
+		System.out.println("info:" + lfuhashMap);
+		System.out.println("keyset:" + lfuhashMap.keySet());
 		System.out.println();
 		// System.out.println("max size" + maxsize);
 	}

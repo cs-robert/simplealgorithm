@@ -1,6 +1,5 @@
 package com.algorithm.list;
 
-import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

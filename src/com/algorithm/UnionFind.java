@@ -1,5 +1,11 @@
 package com.algorithm;
 
+/**
+ * 并查集算法简单实现
+ * 
+ * @author chao
+ *
+ */
 public class UnionFind {
 	static int p[] = new int[100];
 
