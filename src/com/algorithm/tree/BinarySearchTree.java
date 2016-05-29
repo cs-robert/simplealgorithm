@@ -1,7 +1,6 @@
 package com.algorithm.tree;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * 二分查找

@@ -1,8 +1,5 @@
-package com.algorithm;
+package com.algorithm.sort;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,34 +48,4 @@ public class JavaSort {
 		System.out.println(personlist);
 	}
 
-	/**
-	 * 简单冒泡排序
-	 */
-	public static void maopaoTest() {
-		int num[] = new int[100];
-		String curnum;
-		BufferedReader read = new BufferedReader(new InputStreamReader(
-				System.in));
-		for (int i = 0; i < 10; i++) {
-			try {
-				curnum = read.readLine();
-				num[i] = Integer.valueOf(curnum);
-				System.out.print(num[i] + " ");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println();
-		int temp;
-		for (int i = 1; i < 10; i++)
-			for (int j = 0; j < 10 - i; j++) {
-				if (num[j] > num[j + 1]) {
-					temp = num[j];
-					num[j] = num[j + 1];
-					num[j + 1] = temp;
-				}
-			}
-		for (int i = 0; i < 10; i++)
-			System.out.print(num[i] + " ");
-	}
 }
