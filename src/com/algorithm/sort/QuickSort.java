@@ -11,8 +11,8 @@ public class QuickSort {
 	 * 快速排序
 	 * 
 	 * @param num
-	 * @param start
-	 * @param end
+	 * @param left
+	 * @param right
 	 */
 	public static void sort(int[] num, int left, int right) {
 		if (left < right) {
@@ -23,7 +23,7 @@ public class QuickSort {
 	}
 
 	/**
-	 * 数据分组，
+	 * 数据分组
 	 * 
 	 * @param num
 	 * @param left
