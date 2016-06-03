@@ -1,4 +1,4 @@
-package com.algorithm;
+package com.algotithm.graphics;
 
 public class DeepSearch {
 

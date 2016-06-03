@@ -1,4 +1,4 @@
-package com.algorithm;
+package com.algotithm.graphics;
 
 /**
  * 并查集算法简单实现

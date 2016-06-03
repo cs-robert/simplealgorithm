@@ -1,4 +1,4 @@
-package com.algorithm;
+package com.algorithm.math;
 
 import java.io.BufferedReader;
 import java.io.IOException;
