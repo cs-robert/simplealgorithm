@@ -12,9 +12,13 @@ import java.util.NoSuchElementException;
  * @param <E>
  */
 public class MyLinkedList<E> implements Iterable<E> {
-	private class Node<T> {
+	public static class Node<T> {
 		public Node() {
 
+		}
+
+		public Node(T ele) {
+			this.ele = ele;
 		}
 
 		public Node(T ele, Node next, Node pre) {
