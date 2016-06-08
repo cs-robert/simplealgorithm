@@ -8,7 +8,7 @@ package com.algorithm.tree;
  * @param <T>
  */
 public class BinaryTree<T> {
-	private BinaryTreeNode<T> root;
+	protected BinaryTreeNode<T> root;
 
 	public static class BinaryTreeNode<T> {
 		public T element;

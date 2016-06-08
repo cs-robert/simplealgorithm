@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author chao
  *
  */
-public class BinarySearchTree {
+public class BinarySearch {
 	/**
 	 * 非递归二分查找
 	 * 
