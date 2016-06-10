@@ -123,7 +123,7 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @return
 	 */
 	public BinaryTreeNode<T> findMax() {
-		return findMin(root);
+		return findMax(root);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 		} else if (node.right == null) {
 			return node;
 		}
-		return findMin(node.right);
+		return findMax(node.right);
 	}
 
 	/**
@@ -168,8 +168,10 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 		} else if (compareresult < 0) {
 			cur.right = remove(cur.right, x);
 		} else if (cur.left != null && cur.right != null) {
-			cur.right = remove(cur.right, findMin(cur.right));
-
+			BinaryTreeNode<T> minnode = findMin(cur.right);
+			cur.right = remove(cur.right, minnode);
+			cur.element = minnode.element;
+			minnode = null;
 		} else {
 			cur = (cur.left == null) ? cur.right : cur.left;
 		}
