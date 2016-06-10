@@ -98,4 +98,15 @@ public class AVLTree<T> extends BinarySeachTree<T> {
 		k3.right = roateWithLeftChild(k3.right);
 		return roateWithRightChild(k3);
 	}
+
+	@Override
+	public void remove(T x) {
+		BinaryTreeNode<T> node = findNode(root, x);
+		if (node == null || node.hintcount < 0) {
+			return;
+		} else {
+			lazyRemove(node);
+		}
+	}
+
 }
