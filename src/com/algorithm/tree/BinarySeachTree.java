@@ -12,16 +12,16 @@ import java.util.Comparator;
 public class BinarySeachTree<T> extends BinaryTree<T> {
 	private Comparator<T> comparator;
 
-	public BinarySeachTree(BinarySeachTree.BinaryTreeNode<T> root) {
+	public BinarySeachTree(T root) {
 		this(root, null);
 	}
 
-	public BinarySeachTree(BinarySeachTree.BinaryTreeNode<T> root, Comparator<T> comparator) {
+	public BinarySeachTree(T root, Comparator<T> comparator) {
 		super(root);
 		this.comparator = comparator;
 	}
 
-	private int compare(BinarySeachTree.BinaryTreeNode<T> a, BinarySeachTree.BinaryTreeNode<T> b) {
+	protected int compare(BinarySeachTree.BinaryTreeNode<T> a, BinarySeachTree.BinaryTreeNode<T> b) {
 		if (comparator != null) {
 			return comparator.compare(a.element, b.element);
 		} else if (a.element instanceof Comparable && b.element instanceof Comparable) {
@@ -29,7 +29,16 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 		} else {
 			throw new RuntimeException("can't compare " + a.element.getClass());
 		}
+	}
 
+	protected int compare(T a, T b) {
+		if (comparator != null) {
+			return comparator.compare(a, b);
+		} else if (a instanceof Comparable && b instanceof Comparable) {
+			return ((Comparable) a).compareTo(b);
+		} else {
+			throw new RuntimeException("can't compare " + a.getClass() + " " + b.getClass());
+		}
 	}
 
 	/**
@@ -38,8 +47,8 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @param x
 	 * @return
 	 */
-	public boolean contains(BinaryTreeNode<T> x) {
-		return contains(root, x);
+	public boolean contains(T x) {
+		return contains(root, new BinaryTreeNode<T>(x));
 	}
 
 	/**
@@ -49,8 +58,8 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @param x
 	 * @return
 	 */
-	public boolean contains(BinaryTreeNode<T> cur, BinaryTreeNode<T> x) {
-		if (x == null || cur == null) {
+	protected boolean contains(BinaryTreeNode<T> cur, BinaryTreeNode<T> x) {
+		if (x == null || cur == null || cur.hintcount < 0) {
 			return false;
 		}
 		int compareresult = compare(cur, x);
@@ -64,13 +73,37 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	}
 
 	/**
+	 * 查找节点
+	 * 
+	 * @param cur
+	 * @param x
+	 * @return
+	 */
+	protected BinaryTreeNode<T> findNode(BinaryTreeNode<T> cur, T x) {
+		if (x == null || cur == null || cur.hintcount < 0) {
+			return null;
+		}
+		int compareresult = compare(cur.element, x);
+		if (compareresult == 0) {
+			return cur;
+		} else if (compareresult < 0) {
+			return findNode(cur.right, x);
+		} else {
+			return findNode(cur.left, x);
+		}
+	}
+
+	/**
 	 * 从根节点插入一个新数据
 	 * 
 	 * @param x
 	 * @return
 	 */
-	public BinaryTreeNode<T> insert(BinaryTreeNode<T> x) {
-		return insert(root, x);
+	public void insert(T x) {
+		if (x == null) {
+			return;
+		}
+		insert(root, new BinaryTreeNode<T>(x));
 	}
 
 	/**
@@ -89,6 +122,8 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 			cur.right = insert(cur.right, x);
 		} else if (compareresult > 0) {
 			cur.left = insert(cur.left, x);
+		} else {
+			cur.hintcount++;
 		}
 		return cur;
 	}
@@ -98,8 +133,8 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * 
 	 * @return
 	 */
-	public BinaryTreeNode<T> findMin() {
-		return findMin(root);
+	public T findMin() {
+		return findMin(root).element;
 	}
 
 	/**
@@ -108,7 +143,7 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @param node
 	 * @return
 	 */
-	public BinaryTreeNode<T> findMin(BinaryTreeNode<T> node) {
+	protected BinaryTreeNode<T> findMin(BinaryTreeNode<T> node) {
 		if (node == null) {
 			return null;
 		} else if (node.left == null) {
@@ -122,8 +157,8 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * 
 	 * @return
 	 */
-	public BinaryTreeNode<T> findMax() {
-		return findMax(root);
+	public T findMax() {
+		return findMax(root).element;
 	}
 
 	/**
@@ -132,7 +167,7 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @param node
 	 * @return
 	 */
-	public BinaryTreeNode<T> findMax(BinaryTreeNode<T> node) {
+	protected BinaryTreeNode<T> findMax(BinaryTreeNode<T> node) {
 		if (node == null) {
 			return null;
 		} else if (node.right == null) {
@@ -147,8 +182,26 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @param x
 	 * @return
 	 */
-	public BinaryTreeNode<T> remove(BinaryTreeNode<T> x) {
-		return remove(root, x);
+	public void remove(T x) {
+		BinaryTreeNode<T> node = findNode(root, x);
+		if (node == null) {
+			return;
+		} else if (node.hintcount <= 0) {
+			remove(root, new BinaryTreeNode<T>(x));
+		} else {
+			lazyRemove(node);
+		}
+	}
+
+	public void lazyRemove(T x) {
+		BinaryTreeNode<T> node = findNode(root, x);
+		if (node != null) {
+			node.hintcount--;
+		}
+	}
+
+	protected void lazyRemove(BinaryTreeNode<T> x) {
+		x.hintcount--;
 	}
 
 	/**
@@ -158,7 +211,7 @@ public class BinarySeachTree<T> extends BinaryTree<T> {
 	 * @param x
 	 * @return
 	 */
-	public BinaryTreeNode<T> remove(BinaryTreeNode<T> cur, BinaryTreeNode<T> x) {
+	protected BinaryTreeNode<T> remove(BinaryTreeNode<T> cur, BinaryTreeNode<T> x) {
 		if (cur == null || x == null) {
 			return cur;
 		}
