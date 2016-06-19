@@ -40,6 +40,17 @@ public class BinarySearch {
 	 * 递归查找
 	 * 
 	 * @param num
+	 * @param key
+	 * @return
+	 */
+	public static int RecursivebinarySearch(int num[], int key) {
+		return RecursivebinarySearch(num, 0, num.length - 1, key);
+	}
+
+	/**
+	 * 递归查找
+	 * 
+	 * @param num
 	 * @param number
 	 * @return
 	 */
@@ -57,12 +68,4 @@ public class BinarySearch {
 
 	}
 
-	public static void main(String[] args) {
-		int num[] = { 3, 5, 7, 9, 10 };
-		Arrays.sort(num);
-		System.out.println(binarySearch(num, 7));
-		System.out.println(binarySearch(num, 8));
-		System.out.println(RecursivebinarySearch(num, 0, num.length - 1, 7));
-		System.out.println(RecursivebinarySearch(num, 0, num.length - 1, 8));
-	}
 }

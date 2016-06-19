@@ -1,5 +1,7 @@
 package com.algorithm.cache;
 
+import org.junit.Test;
+
 /**
  * 我们暂且把put相同的key也当成一种命中
  * 
@@ -9,10 +11,11 @@ package com.algorithm.cache;
 public class CacheTest {
 
 	public static void main(String[] args) {
-		test();
+
 	}
 
-	public static void test() {
+	@Test
+	public void test() {
 		FIFOCache<String, String> fifoCache = new FIFOCache<String, String>(10);
 		fifoCache.put("1", "aaa");
 		fifoCache.printAll();
