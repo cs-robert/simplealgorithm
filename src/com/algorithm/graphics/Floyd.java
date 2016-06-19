@@ -1,4 +1,4 @@
-package com.algotithm.graphics;
+package com.algorithm.graphics;
 
 /**
  * Floyd算法求所有点对之间的最短路径 原理：主要是通过遍历的方式任何一对顶点之间vi和vj的最短路径都都只能存在1到n-1的节点，所以可以通过遍历
