@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class PrimeNumber {
 
-	static boolean num[] = new boolean[10000];
+	static boolean num[] = new boolean[1000000];
 	// 初始化素数表
 	static {
 		Arrays.fill(num, true);
@@ -21,9 +21,9 @@ public class PrimeNumber {
 		num[0] = false;
 		num[1] = false;
 		num[2] = true;
-		for (i = 2; i < 100; i++) {
+		for (i = 2; i < 1000; i++) {
 			if (num[i]) {
-				for (j = i + i; j < 10000; j = j + i)
+				for (j = i + i; j < 1000000; j = j + i)
 					num[j] = false;
 			}
 		}
@@ -41,6 +41,13 @@ public class PrimeNumber {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static int nextPrime(int size) {
+		while (!num[size]) {
+			size++;
+		}
+		return size;
 	}
 
 }
