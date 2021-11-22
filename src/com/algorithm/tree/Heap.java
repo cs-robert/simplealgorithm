@@ -157,7 +157,7 @@ public class Heap {
 
 	// 非递归实现
 	public static void heapUp2(List heap, int index) {
-		int parent = 0;
+		int parent;
 		for (; index > 1; index /= 2) {
 			// 获取index的父节点的下标
 			parent = index / 2;
